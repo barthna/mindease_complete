@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindEase Chat - Your AI Mental Health Companion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div class="bg-particles"></div>
+        <div class="bg-gradient-mesh"></div>
+        <div class="bg-floating-orbs"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Left Sidebar - Emotion Detection -->
+        <div class="sidebar left-sidebar" id="leftSidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-heart-pulse"></i> Live Emotions</h3>
+                <div class="emotion-status">
+                    <span class="status-dot"></span>
+                    <span>Detecting...</span>
+                </div>
+            </div>
+            
+            <div class="current-emotions">
+                <h4>Current State</h4>
+                <div class="emotion-display" id="currentEmotions">
+                    <div class="emotion-item calm">
+                        <div class="emotion-icon">😌</div>
+                        <div class="emotion-info">
+                            <span class="emotion-name">Calm</span>
+                            <div class="emotion-bar">
+                                <div class="emotion-progress" style="width: 60%"></div>
+                            </div>
+                            <span class="emotion-percentage">60%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="emotion-history">
+                <h4>Recent Patterns</h4>
+                <div class="emotion-timeline" id="emotionTimeline">
+                    <!-- Timeline items will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="emotion-insights">
+                <h4>Insights</h4>
+                <div class="insight-card" id="emotionInsights">
+                    <p>Start chatting to see your emotional patterns and insights.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="chat-section">
+            <!-- Chat Header -->
+            <div class="chat-header">
+                <div class="header-left">
+                    <div class="bot-avatar">
+                        <i class="fas fa-brain"></i>
+                        <div class="avatar-pulse"></div>
+                    </div>
+                    <div class="bot-info">
+                        <h1>MindEase</h1>
+                        <div class="bot-status">
+                            <div class="status-indicator"></div>
+                            <span>Online & Ready to Help</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="header-controls">
+                    <div class="language-selector">
+                        <select id="languageSelect">
+                            <option value="auto">Auto-detect</option>
+                            <option value="en">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="hinglish">Hinglish</option>
+                            <option value="gu">Gujrati</option>
+                        </select>
+                    </div>
+                    <button class="voice-toggle-btn" id="voiceToggle" title="Voice Chat">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button class="thoughts-btn" id="thoughtsBtn" title="Journal">
+                        <i class="fas fa-journal-whills"></i>
+                    </button>
+                    <button class="analysis-toggle-btn" id="analysisToggle" title="Emotion Analysis">
+                        <i class="fas fa-chart-line"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="chat-container" id="chatContainer">
+                <!-- Welcome Message -->
+                <div class="message welcome-message">
+                    <div class="bot-avatar-small">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="sender-name">MindEase</span>
+                            <span class="message-time" id="welcomeTime"></span>
+                        </div>
+                        <p>Hello! I'm MindEase, your AI mental health companion. I'm here to listen, support, and help you navigate your emotions. 💙</p>
+                        <p>Feel free to share anything on your mind - I'll provide a safe, non-judgmental space for you to express yourself.</p>
+                        
+                        <div class="quick-starters">
+                            <button class="quick-starter" data-message="I'm feeling a bit overwhelmed today">
+                                <i class="fas fa-cloud-rain"></i> Feeling overwhelmed
+                            </button>
+                            <button class="quick-starter" data-message="I want to talk about my anxiety">
+                                <i class="fas fa-heart"></i> Discuss anxiety
+                            </button>
+                            <button class="quick-starter" data-message="I'm having trouble sleeping">
+                                <i class="fas fa-moon"></i> Sleep issues
+                            </button>
+                            <button class="quick-starter" data-message="I need some motivation">
+                                <i class="fas fa-star"></i> Need motivation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typing Indicator -->
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="bot-avatar-small">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="typing-content">
+                    <div class="typing-text">MindEase is thinking...</div>
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message Input -->
+            <div class="message-input-container">
+                <div class="input-wrapper">
+                    <div class="emoji-picker-container">
+                        <button class="emoji-btn" id="emojiBtn">
+                            <i class="fas fa-smile"></i>
+                        </button>
+                        <div class="emoji-picker" id="emojiPicker">
+                            <div class="emoji-grid">
+  <!-- Mood & Emotion -->
+  <span class="emoji" data-emoji="😀">😀</span>
+  <span class="emoji" data-emoji="😃">😃</span>
+  <span class="emoji" data-emoji="😄">😄</span>
+  <span class="emoji" data-emoji="😁">😁</span>
+  <span class="emoji" data-emoji="😆">😆</span>
+  <span class="emoji" data-emoji="🥹">🥹</span>
+  <span class="emoji" data-emoji="😂">😂</span>
+  <span class="emoji" data-emoji="😅">😅</span>
+  <span class="emoji" data-emoji="😊">😊</span>
+  <span class="emoji" data-emoji="🙂">🙂</span>
+  <span class="emoji" data-emoji="😌">😌</span>
+  <span class="emoji" data-emoji="😔">😔</span>
+  <span class="emoji" data-emoji="😢">😢</span>
+  <span class="emoji" data-emoji="😭">😭</span>
+  <span class="emoji" data-emoji="😩">😩</span>
+  <span class="emoji" data-emoji="😣">😣</span>
+  <span class="emoji" data-emoji="😖">😖</span>
+  <span class="emoji" data-emoji="😡">😡</span>
+  <span class="emoji" data-emoji="😤">😤</span>
+  <span class="emoji" data-emoji="😨">😨</span>
+  <span class="emoji" data-emoji="😰">😰</span>
+  <span class="emoji" data-emoji="😱">😱</span>
+  <span class="emoji" data-emoji="🤯">🤯</span>
+  <span class="emoji" data-emoji="😇">😇</span>
+  <span class="emoji" data-emoji="😶‍🌫️">😶‍🌫️</span>
+  <span class="emoji" data-emoji="🥱">🥱</span>
+  <span class="emoji" data-emoji="😴">😴</span>
+
+  <!-- Hearts & Love -->
+  <span class="emoji" data-emoji="❤️">❤️</span>
+  <span class="emoji" data-emoji="🧡">🧡</span>
+  <span class="emoji" data-emoji="💛">💛</span>
+  <span class="emoji" data-emoji="💚">💚</span>
+  <span class="emoji" data-emoji="💙">💙</span>
+  <span class="emoji" data-emoji="💜">💜</span>
+  <span class="emoji" data-emoji="🩷">🩷</span>
+  <span class="emoji" data-emoji="🤍">🤍</span>
+  <span class="emoji" data-emoji="🖤">🖤</span>
+  <span class="emoji" data-emoji="💞">💞</span>
+  <span class="emoji" data-emoji="💓">💓</span>
+  <span class="emoji" data-emoji="💗">💗</span>
+  <span class="emoji" data-emoji="💖">💖</span>
+  <span class="emoji" data-emoji="💘">💘</span>
+  <span class="emoji" data-emoji="💟">💟</span>
+
+  <!-- Encouragement / Uplifting -->
+  <span class="emoji" data-emoji="✨">✨</span>
+  <span class="emoji" data-emoji="🌟">🌟</span>
+  <span class="emoji" data-emoji="☀️">☀️</span>
+  <span class="emoji" data-emoji="🌈">🌈</span>
+  <span class="emoji" data-emoji="🦋">🦋</span>
+  <span class="emoji" data-emoji="🌻">🌻</span>
+  <span class="emoji" data-emoji="🌼">🌼</span>
+  <span class="emoji" data-emoji="🌷">🌷</span>
+  <span class="emoji" data-emoji="🌸">🌸</span>
+  <span class="emoji" data-emoji="🌺">🌺</span>
+  <span class="emoji" data-emoji="🌞">🌞</span>
+  <span class="emoji" data-emoji="🌄">🌄</span>
+  <span class="emoji" data-emoji="🎈">🎈</span>
+
+  <!-- Calm / Mental Health -->
+  <span class="emoji" data-emoji="🧘">🧘</span>
+  <span class="emoji" data-emoji="🫧">🫧</span>
+  <span class="emoji" data-emoji="🕊️">🕊️</span>
+  <span class="emoji" data-emoji="🌿">🌿</span>
+  <span class="emoji" data-emoji="🍃">🍃</span>
+  <span class="emoji" data-emoji="🏞️">🏞️</span>
+  <span class="emoji" data-emoji="💫">💫</span>
+  <span class="emoji" data-emoji="⛅">⛅</span>
+  <span class="emoji" data-emoji="🎐">🎐</span>
+  <span class="emoji" data-emoji="🛁">🛁</span>
+  <span class="emoji" data-emoji="🛏️">🛏️</span>
+
+  <!-- Gestures / Connection -->
+  <span class="emoji" data-emoji="🤗">🤗</span>
+  <span class="emoji" data-emoji="🫶">🫶</span>
+  <span class="emoji" data-emoji="🤝">🤝</span>
+  <span class="emoji" data-emoji="🙏">🙏</span>
+  <span class="emoji" data-emoji="👋">👋</span>
+  <span class="emoji" data-emoji="👂">👂</span>
+  <span class="emoji" data-emoji="👀">👀</span>
+  <span class="emoji" data-emoji="🤲">🤲</span>
+  <span class="emoji" data-emoji="🙌">🙌</span>
+  <span class="emoji" data-emoji="👐">👐</span>
+  <span class="emoji" data-emoji="✋">✋</span>
+  <span class="emoji" data-emoji="🖐️">🖐️</span>
+
+  <!-- Chat / Symbols -->
+  <span class="emoji" data-emoji="💬">💬</span>
+  <span class="emoji" data-emoji="📩">📩</span>
+  <span class="emoji" data-emoji="📥">📥</span>
+  <span class="emoji" data-emoji="📝">📝</span>
+  <span class="emoji" data-emoji="📖">📖</span>
+  <span class="emoji" data-emoji="🧠">🧠</span>
+  <span class="emoji" data-emoji="🎯">🎯</span>
+  <span class="emoji" data-emoji="🧭">🧭</span>
+  <span class="emoji" data-emoji="🔄">🔄</span>
+</div>
+
+
+                        </div>
+                    </div>
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Share what's on your mind..." 
+                        rows="1"
+                        maxlength="1000"
+                    ></textarea>
+                    <button class="send-btn" id="sendBtn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-status">
+                    <div class="live-emotions" id="liveEmotions"></div>
+                    <div class="char-count" id="charCount">0/1000</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar - Analysis -->
+        <div class="sidebar right-sidebar collapsed" id="rightSidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-chart-line"></i> Emotion Analysis</h3>
+                <button class="collapse-btn" id="collapseSidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="analysis-tabs">
+                <button class="tab-btn active" data-tab="trends">
+                    <i class="fas fa-trending-up"></i> Trends
+                </button>
+                <button class="tab-btn" data-tab="patterns">
+                    <i class="fas fa-chart-pie"></i> Patterns
+                </button>
+                <button class="tab-btn" data-tab="insights">
+                    <i class="fas fa-lightbulb"></i> Insights
+                </button>
+            </div>
+            
+            <div class="tab-content active" id="trendsTab">
+                <div class="chart-container">
+                    <canvas id="emotionTrendChart"></canvas>
+                </div>
+                <div class="trend-summary" id="trendSummary">
+                    <p>Start chatting to see your emotion trends over time.</p>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="patternsTab">
+                <div class="chart-container">
+                    <canvas id="emotionPieChart"></canvas>
+                </div>
+                <div class="pattern-summary" id="patternSummary">
+                    <p>Emotion patterns will appear as you chat more.</p>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="insightsTab">
+                <div class="insights-content" id="insightsContent">
+                    <div class="insight-card">
+                        <h4>Emotional Insights</h4>
+                        <p>Continue chatting to receive personalized insights about your emotional patterns.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voice Status -->
+    <div class="voice-status" id="voiceStatus">
+        <div class="voice-animation">
+            <div class="voice-wave"></div>
+            <div class="voice-wave"></div>
+            <div class="voice-wave"></div>
+        </div>
+        <span>Listening...</span>
+    </div>
+
+    <!-- Thoughts Modal -->
+    <div class="modal" id="thoughtsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-journal-whills"></i> Your Thoughts Journal</h3>
+                <button class="close-modal" id="closeThoughts">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="thought-input-container">
+                    <textarea 
+                        id="thoughtInput" 
+                        placeholder="Write down your thoughts and feelings..."
+                        rows="4"
+                    ></textarea>
+                    <button class="save-thought-btn" id="saveThought">
+                        <i class="fas fa-save"></i> Save Thought
+                    </button>
+                </div>
+                <div class="thoughts-list" id="thoughtsList">
+                    <!-- Thoughts will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/emotions.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/voice.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+</body>
+</html>

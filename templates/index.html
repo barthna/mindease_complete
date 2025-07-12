@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindEase - Your Mental Health Companion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-container">
+        <div class="bg-particles"></div>
+        <div class="bg-gradient-orbs">
+            <div class="gradient-orb" style="top: 10%; left: 10%;"></div>
+            <div class="gradient-orb" style="top: 60%; right: 15%;"></div>
+            <div class="gradient-orb" style="bottom: 20%; left: 20%;"></div>
+        </div>
+        <div class="bg-mesh"></div>
+    </div>
+
+    <div class="landing-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-heart"></i>
+                    <span>Your Mental Health Matters</span>
+                </div>
+                
+                <h1 class="logo">MindEase</h1>
+                <p class="tagline">Your Personal Mental Health Companion</p>
+                <p class="description">
+                    Experience compassionate AI-powered mental health support with real-time emotion detection, 
+                    voice interaction, and personalized guidance. Start your journey to better mental wellness today.
+                </p>
+                
+                <div class="hero-features">
+                    <div class="feature-tag">
+                        <i class="fas fa-brain"></i>
+                        <span>AI-Powered Support</span>
+                    </div>
+                    <div class="feature-tag">
+                        <i class="fas fa-heart-pulse"></i>
+                        <span>Emotion Detection</span>
+                    </div>
+                    <div class="feature-tag">
+                        <i class="fas fa-microphone"></i>
+                        <span>Voice Interaction</span>
+                    </div>
+                    <div class="feature-tag">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>100% Private</span>
+                    </div>
+                </div>
+                
+                <a href="/chat" class="hero-cta">
+                    <i class="fas fa-comments"></i>
+                    <span>Start Chatting</span>
+                </a>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="floating-card">
+                    <i class="fas fa-brain"></i>
+                    <div class="card-content">
+                        <h3>AI Companion</h3>
+                        <p>Always here to listen and support you</p>
+                    </div>
+                </div>
+                
+                <div class="floating-elements">
+                    <div class="element heart">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="element mic">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <div class="element note">
+                        <i class="fas fa-sticky-note"></i>
+                    </div>
+                    <div class="element star">
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="section-header">
+                <h2>Powerful Features for Your Mental Wellness</h2>
+                <p>Discover how MindEase can support your mental health journey with advanced AI technology</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card premium">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Real-time Emotion Detection</h3>
+                    <p>Advanced AI analyzes your messages to understand your emotional state and provide personalized support.</p>
+                    <div class="feature-badge">Premium</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Empathetic Conversations</h3>
+                    <p>Engage in meaningful conversations with our AI companion that truly understands and responds to your needs.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h3>Voice Interaction</h3>
+                    <p>Speak naturally with voice recognition and text-to-speech for a more personal experience.</p>
+                </div>
+                
+                <div class="feature-card premium">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Emotion Analytics</h3>
+                    <p>Track your emotional patterns over time with detailed analytics and insights.</p>
+                    <div class="feature-badge">Premium</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-journal-whills"></i>
+                    </div>
+                    <h3>Personal Journal</h3>
+                    <p>Keep track of your thoughts and feelings in a private, secure digital journal.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Complete Privacy</h3>
+                    <p>Your conversations are completely private and secure. We never store or share your personal data.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

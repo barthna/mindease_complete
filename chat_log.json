@@ -1,0 +1,42 @@
+[
+  {
+    "timestamp": "2025-07-12T08:49:53.460944",
+    "session_id": "1752305640.852142",
+    "user_message": "hi",
+    "bot_response": "Hi there again! \ud83e\udd17 It's lovely to hear from you. How are you doing today, and is there anything on your mind I can help with? \ud83c\udf1f",
+    "emotions": [
+      "calm"
+    ],
+    "emotion_scores": {
+      "calm": 0.9
+    }
+  },
+  {
+    "timestamp": "2025-07-12T08:50:30.633042",
+    "session_id": "1752305640.852142",
+    "user_message": "ak baat batau",
+    "bot_response": "Of course, you can tell me anything! \ud83c\udf1f I'm right here to listen, whenever you're ready to share. Please feel free to open up. \ud83e\udd17",
+    "emotions": [
+      "curiosity",
+      "calm"
+    ],
+    "emotion_scores": {
+      "curiosity": 0.9,
+      "calm": 0.8
+    }
+  },
+  {
+    "timestamp": "2025-07-12T08:52:15.695258",
+    "session_id": "1752305640.852142",
+    "user_message": "hi",
+    "bot_response": "Hi again! \ud83d\udc4b It's good to connect with you. I'm here and ready to listen whenever you'd like to share what's on your mind. How can I support you today? \ud83c\udf1f",
+    "emotions": [
+      "calm",
+      "curiosity"
+    ],
+    "emotion_scores": {
+      "calm": 0.9,
+      "curiosity": 0.8
+    }
+  }
+]
